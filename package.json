@@ -1,6 +1,6 @@
 {
-  "name": "cf-test",
-  "version": "1.0.0",
+  "name": "durable-stream",
+  "version": "1.0.0-beta",
   "module": "./src/main.mjs",
   "devDependencies": {
     "miniflare": "^2.7.1",
