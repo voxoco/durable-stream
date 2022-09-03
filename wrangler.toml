@@ -1,0 +1,21 @@
+name = "durable_stream"
+compatibility_date = "2022-08-15"
+main = "src/main"
+
+[build.upload]
+format = "modules"
+
+[durable_objects]
+bindings = [{name = "durableStream", class_name = "DurableStream"}]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["DurableStream"]
+
+[[r2_buckets]]
+binding = 'bucket'
+bucket_name = 'durable-stream-bucket'
+
+[miniflare]
+durable_objects_persist = true
+r2_persist = true
