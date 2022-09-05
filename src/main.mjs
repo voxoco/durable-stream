@@ -90,6 +90,7 @@ export class DurableStream {
     // Add the websocket to our sessions list
     const sid = Math.random().toString(16).slice(2);
     this.sessions[sid] = {ws, ip, hasListener: false, sid};
+    console.log(`New session: ${sid}`);
 
     // On "close", remove the WebSocket from the sessions list and broadcast
     const closeHandler = async () => {
@@ -126,9 +127,11 @@ export class DurableStream {
 
     // First check for any commands
     if (json.data?.cmd) {
+      console.log(`Received command: ${json.data.cmd} from ${sid}`);
+
       switch(json.data.cmd) {
         case 'getStreamInfo':
-          this.sessions[sid].ws.send(json);
+          this.sessions[sid].ws.send(JSON.stringify(json));
           return;
         case 'subscribe':
           this.sessions[sid].ws.send(JSON.stringify(json));
@@ -183,8 +186,9 @@ export class DurableStream {
 
   // Broadcast a message to all clients.
   async broadcast(msg) {
-    // Get list of sessions that have a listener
-    const sessions = Object.values(this.sessions).filter(s => s.hasListener);
+
+    // Get a list of session id's to that are listening
+    const sessions = Object.keys(this.sessions).filter((sid) => this.sessions[sid].hasListener);
 
     // Early return if there are no sessions with a listener
     if (!sessions.length) return;
@@ -202,6 +206,8 @@ export class DurableStream {
   // Handle subscriptions
   async subscribe(start, sid) {
     if (start <= 0) start = 0;
+
+    console.log(`Subscribing ${sid} to messages from sequence ${start}`);
 
     // If the startSequence is greater than or equal to this.sequence then there are no messages to send
     if (start >= this.sequence) {
