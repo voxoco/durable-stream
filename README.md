@@ -4,7 +4,7 @@ A 0 dependency messaging server that uses [Durable Objects](https://developers.c
 
 ## Why?
 
-There are plenty of **clustered** messaging solutions like [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/), and [NATS](https://nats.io). But what if you want a **serverless** solution? This project is an attempt to provide just that using [Cloudflare Workers](https://workers.cloudflare.com/). We are also testing this out as a possible MySQL query replication query stream as it provides a global uniqueness for any number of our MySQL proxy clients running the [Durable Stream Client](https://github.com/voxoco/durable-stream-client).
+There are plenty of **clustered** messaging solutions like [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/), and [NATS](https://nats.io). But what if you want a **serverless** solution? This project is an attempt to provide just that using [Cloudflare Workers](https://workers.cloudflare.com/) that models itself after [NATS Jetstream](https://docs.nats.io/nats-concepts/jetstream) (except a more opinionated and simplified implementation). We are also testing this out as a possible MySQL query replication query stream as it provides a global uniqueness for any number of our MySQL proxy clients running the [Durable Stream Client](https://github.com/voxoco/durable-stream-client).
 
 ## How?
 
